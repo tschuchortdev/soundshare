@@ -102,7 +102,7 @@ public class RecordingActivity extends AppCompatActivity implements RecorderList
         // Create a storage reference from our app
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
-        StorageReference riversRef = storageRef.child("soundfiles/"+file.getLastPathSegment());
+        StorageReference riversRef = storageRef.child("Soundfiles/"+file.getLastPathSegment());
         UploadTask uploadTask = riversRef.putFile(file);
 
         // Register observers to listen for when the download is done or if it fails
