@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "88374080632",
+    "firebase_url": "https://devfest-a6147.firebaseio.com",
+    "project_id": "devfest-a6147",
+    "storage_bucket": "devfest-a6147.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88374080632:android:70a081ef853777a2",
+        "android_client_info": {
+          "package_name": "com.tschuchort.soundshare.soundshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "88374080632-i5cpd94tib3a9ebg9o0qemjubudcn4es.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0-kPweG3XoJMbjfAYY5aqaDrLX_LFobM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
