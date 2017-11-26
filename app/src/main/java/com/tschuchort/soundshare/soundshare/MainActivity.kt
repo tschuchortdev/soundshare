@@ -3,12 +3,9 @@ package com.tschuchort.soundshare.soundshare
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import com.airbnb.epoxy.SimpleEpoxyController
 import com.firebase.ui.auth.AuthUI
@@ -17,36 +14,75 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.firebase.ui.auth.ResultCodes
 import com.firebase.ui.auth.IdpResponse
-import kotlinx.android.synthetic.main.fragment_latest.view.*
 
 
 class MainActivity : AppCompatActivity() {
     private val signInRequestCode = 123
     private var user: FirebaseUser? = null
-    private val feedFragment by lazy { FeedFragment() }
-    private val mineFragment by lazy { MineFragment() }
-    private val favoritesFragment by lazy { FavoritesFragment() }
+    val controller = SimpleEpoxyController()
 
+    var latestSounds: List<Sound> = listOf(
+            Sound("test1"),
+            Sound("test2"),
+            Sound("test3"),
+            Sound("test4"),
+            Sound("test5"),
+            Sound("test6"),
+            Sound("test7"),
+            Sound("test8"),
+            Sound("test9"),
+            Sound("test10"),
+            Sound("test20"),
+            Sound("test30"),
+            Sound("test40"),
+            Sound("test50"),
+            Sound("test60"),
+            Sound("test70"),
+            Sound("test80")
+            )
+    var favoriteSounds: List<Sound> = emptyList()
+    var mySounds: List<Sound> = emptyList()
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        val selectedFragment: BaseFragment = when (item.itemId) {
-            R.id.navigation_home -> feedFragment
-            R.id.navigation_dashboard -> mineFragment
-            R.id.navigation_notifications -> favoritesFragment
-            else -> return@OnNavigationItemSelectedListener false
+    fun setLoading(loading: Boolean) {
+        if(loading) {
+            progress_bar.visibility = View.VISIBLE
+            recycler.visibility = View.INVISIBLE
+        }
+        else {
+            progress_bar.visibility = View.INVISIBLE
+            recycler.visibility = View.VISIBLE
         }
 
-        setFragment(selectedFragment)
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_home -> showLatest()
+            R.id.navigation_mine -> showMine()
+            R.id.navigation_favorites -> showFavorites()
+            else -> return@OnNavigationItemSelectedListener false
+        }
         true
     }
 
-    private fun setFragment(frag: BaseFragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.feed_frame, frag)
+    private fun onItemClick(sound: Sound) {
 
-        transaction.runOnCommit { supportActionBar!!.title = frag.title }
+    }
 
-        transaction.commit()
+    private fun showFavorites() {
+        supportActionBar!!.title = "Favorites"
+        controller.setModels(favoriteSounds.map { SoundModel(it, this::onItemClick) })
+    }
+
+    private fun showMine() {
+        supportActionBar!!.title = "My Sounds"
+        controller.setModels(mySounds.map { SoundModel(it, this::onItemClick) })
+
+    }
+
+    private fun showLatest() {
+        supportActionBar!!.title = "My Sounds"
+        controller.setModels(latestSounds.map { SoundModel(it, this::onItemClick) })
     }
 
 
@@ -57,7 +93,10 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         signIn()
-        setFragment(feedFragment)
+        recycler.adapter = controller.adapter
+        recycler.layoutManager = LinearLayoutManager(this)
+        showLatest()
+        setLoading(false)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -87,44 +126,6 @@ class MainActivity : AppCompatActivity() {
                         .build(),
                 signInRequestCode)
     }
-
-    abstract class BaseFragment(val layoutId: Int, val title: String) : Fragment() {
-        val controller = SimpleEpoxyController()
-
-        override fun onSaveInstanceState(outState: Bundle?) {
-            super.onSaveInstanceState(outState)
-            controller.onSaveInstanceState(outState)
-        }
-
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-
-            if(savedInstanceState != null) {
-                controller.onRestoreInstanceState(savedInstanceState)
-            }
-        }
-
-        override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            val view = inflater!!.inflate(layoutId, container, false)
-
-            view.recycler.adapter = controller.adapter
-            view.recycler.layoutManager = LinearLayoutManager(context)
-            return view
-        }
-    }
-
-    class FavoritesFragment : BaseFragment(R.layout.fragment_favorites, "Favorites") {
-
-    }
-
-    class FeedFragment : BaseFragment(R.layout.fragment_latest, "Latest") {
-
-    }
-
-    class MineFragment : BaseFragment(R.layout.fragment_mine, "My Sounds") {
-
-    }
-
 }
 
 

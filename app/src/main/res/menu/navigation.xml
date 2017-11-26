@@ -7,12 +7,12 @@
         android:title="Latest" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_mine"
         android:icon="@drawable/ic_my_sounds"
         android:title="Mine" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_favorites"
         android:icon="@drawable/ic_favorites_black"
         android:title="Favorites" />
 
