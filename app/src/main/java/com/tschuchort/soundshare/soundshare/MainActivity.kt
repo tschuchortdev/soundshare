@@ -9,12 +9,12 @@ import android.view.View
 import android.widget.Toast
 import com.airbnb.epoxy.SimpleEpoxyController
 import com.firebase.ui.auth.AuthUI
-import kotlinx.android.synthetic.main.activity_main.*
+import com.firebase.ui.auth.IdpResponse
+import com.firebase.ui.auth.ResultCodes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.firebase.ui.auth.ResultCodes
-import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -98,6 +98,11 @@ class MainActivity : AppCompatActivity() {
         recycler.adapter = controller.adapter
         recycler.layoutManager = LinearLayoutManager(this)
         setLoading(true)
+
+        floatingActionButton.setOnClickListener {
+            val intent = Intent( this, RecordingActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

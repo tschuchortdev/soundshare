@@ -12,10 +12,12 @@
             android:id="@+id/record"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/drawable_round_button"
             />
         <TextView
+            android:id="@+id/record_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Record"
@@ -24,6 +26,22 @@
             android:layout_below="@id/record"
             />
 
+        <Button
+            android:id="@+id/upload"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/record_text"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/drawable_round_button" />
+
+        <TextView
+            android:id="@+id/upload_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/record_text"
+            android:layout_below="@+id/upload"
+            android:text="Upload"
+            android:textColor="@color/colorPrimaryDark" />
     </RelativeLayout>
 
 

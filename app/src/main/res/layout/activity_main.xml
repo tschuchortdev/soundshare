@@ -12,7 +12,7 @@
         android:layout_width="96dp"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginRight="30dp"
         app:layout_anchor="@+id/linear_layout"
         app:layout_anchorGravity="right|bottom"

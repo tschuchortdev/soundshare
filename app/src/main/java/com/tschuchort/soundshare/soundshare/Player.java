@@ -1,4 +1,4 @@
-package com.indigo.sample.recording;
+package com.tschuchort.soundshare.soundshare;
 
 import android.media.AudioFormat;
 import android.media.AudioManager;

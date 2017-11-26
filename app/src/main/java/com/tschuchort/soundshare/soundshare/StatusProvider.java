@@ -1,4 +1,4 @@
-package com.indigo.sample.recording;
+package com.tschuchort.soundshare.soundshare;
 
 /**
  * Created by jvollmer on 26.11.2017.
