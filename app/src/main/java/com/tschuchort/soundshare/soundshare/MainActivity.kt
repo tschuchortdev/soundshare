@@ -14,12 +14,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.firebase.ui.auth.ResultCodes
 import com.firebase.ui.auth.IdpResponse
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainActivity : AppCompatActivity() {
     private val signInRequestCode = 123
     private var user: FirebaseUser? = null
     val controller = SimpleEpoxyController()
+    val firestore by lazy { FirebaseFirestore.getInstance() }
 
     var latestSounds: List<Sound> = listOf(
             Sound("test1"),
@@ -95,8 +97,7 @@ class MainActivity : AppCompatActivity() {
         signIn()
         recycler.adapter = controller.adapter
         recycler.layoutManager = LinearLayoutManager(this)
-        showLatest()
-        setLoading(false)
+        setLoading(true)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -108,11 +109,22 @@ class MainActivity : AppCompatActivity() {
             if (resultCode == ResultCodes.OK) {
                 // Successfully signed in
                 user = FirebaseAuth.getInstance().currentUser
+                onSignedIn()
             }
             else {
                 Toast.makeText(this, "failed to sign in", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun onSignedIn() {
+        firestore.collection("Soundfiles")
+                .get()
+                .addOnSuccessListener { task ->
+                    latestSounds = task.documents.map { Sound(it.data["url"].toString()) }
+                    showLatest()
+                    setLoading(false)
+                }
     }
 
     private fun signIn() {

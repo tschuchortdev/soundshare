@@ -6,7 +6,7 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelWithHolder
 
-data class Sound(val title: String)
+data class Sound(val url: String)
 
 open class SoundModel(
         @EpoxyAttribute @JvmField val sound: Sound,
@@ -14,14 +14,14 @@ open class SoundModel(
     : EpoxyModelWithHolder<SoundModel.Holder>() {
 
     init {
-        id(sound.title)
+        id(sound.url)
     }
 
     override fun getDefaultLayout() = R.layout.sound_item
 
     override fun bind(holder: Holder?) {
         super.bind(holder)
-        holder!!.titleView.text = sound.title
+        holder!!.titleView.text = sound.url
     }
 
     override fun unbind(holder: Holder?) {
