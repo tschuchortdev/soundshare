@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context="com.tschuchort.soundshare.soundshare.MainActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_anchor="@+id/linear_layout"
+        app:layout_anchorGravity="right|bottom"
+        app:srcCompat="@drawable/fui_ic_twitter_bird_white_24dp" />
+
     <LinearLayout
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
