@@ -7,7 +7,7 @@ import android.util.Log;
  * Created by jvollmer on 26.11.2017.
  */
 
-public class LogicHandler implements RecorderListener{
+public class LogicHandler implements RecorderListener, PlayerListener{
 
 
     private static LogicHandler instance;
@@ -16,6 +16,7 @@ public class LogicHandler implements RecorderListener{
     private final StatusProvider status;
     private RecorderThread rec;
     private RecorderListener listener;
+    private Player player;
 
     /**
      * Konstruktor
@@ -55,12 +56,25 @@ public class LogicHandler implements RecorderListener{
         Log.i(TAG, TAG+"notifyRecordingFinished ");
 
         // save Audio
-
-
+        player = new Player();
+        player.setListener(instance);
+        player.startAfterRecording(rec.getByteArrayOutputStream());
         listener.notifyRecordingFinished();
+
+
     }
 
     public void setListener(RecorderListener listener) {
         this.listener = listener;
+    }
+
+    @Override
+    public void notifyOfInitComplete() {
+        player.playNow();
+    }
+
+    public void stopPlaying() {
+        Log.i(TAG, TAG+"stopPlaying ");
+        player.stopNow();
     }
 }

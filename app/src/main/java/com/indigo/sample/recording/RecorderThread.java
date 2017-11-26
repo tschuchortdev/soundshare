@@ -212,4 +212,8 @@ public class RecorderThread extends Thread {
     }
 
 
+    public ByteArrayOutputStream getByteArrayOutputStream() {
+        return baos;
+    }
+
 }
