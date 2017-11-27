@@ -16,7 +16,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
 /**
  * Created by jvollmer on 26.11.2017.
  */
@@ -104,23 +103,4 @@ public class RecordingActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void writeToDb(){
-//        // Add a new document in collection "cities"
-//        db.collection("cities").doc("LA").set({
-//                name: "Los Angeles",
-//                state: "CA",
-//                country: "USA"
-//        })
-//        .then(function() {
-//                    console.log("Document successfully written!");
-//                })
-//        .catch(function(error) {
-//                    console.error("Error writing document: ", error);
-//                });
-//
-//
-//    }
-
-
 }
