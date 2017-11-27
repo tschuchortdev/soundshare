@@ -21,13 +21,11 @@ import com.google.firebase.storage.UploadTask;
  * Created by jvollmer on 26.11.2017.
  */
 
-public class RecordingActivity extends AppCompatActivity implements RecorderListener{
+public class RecordingActivity extends AppCompatActivity {
 
     private static final String TAG = RecordingActivity.class.getSimpleName();
     private static final int PICKFILE_REQUEST_CODE = 1234 ;
     private static final int ACTIVITY_RECORD_SOUND = 4321;
-    private StatusProvider status;
-    private LogicHandler logicHandler;
     private Button record;
 
 
@@ -36,10 +34,6 @@ public class RecordingActivity extends AppCompatActivity implements RecorderList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
-
-        status = StatusProvider.getInstance();
-        logicHandler = LogicHandler.getInstance(this);
-        logicHandler.setListener(this);
 
         record = findViewById(R.id.record);
         record.setOnClickListener(new View.OnClickListener() {
@@ -60,19 +54,6 @@ public class RecordingActivity extends AppCompatActivity implements RecorderList
             }
         });
     }
-
-
-    @Override
-    public void notifyRecordingFinished() {
-        Log.i(TAG, TAG+"notifyRecordingFinished ");
-        status.setRecordingBlock(false);
-
-
-        
-        // update ViewStatus
-        record.setPressed(false);
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode,int resultCode, Intent data){
